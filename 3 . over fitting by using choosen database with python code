@@ -1,0 +1,25 @@
+import numpy as np
+from sklearn.datasets import load_breast_cancer
+from sklearn.model_selection import cross_val_score
+from sklearn.linear_model import LogisticRegression
+
+# Load breast cancer dataset
+data = load_breast_cancer()
+X = data.data
+y = data.target
+
+# Choose a model (Logistic Regression in this example)
+model = LogisticRegression()
+
+# Evaluate the model using cross-validation
+cv_scores = cross_val_score(model, X, y, cv=5)  # 5-fold cross-validation
+
+# Display the cross-validation scores
+print("Cross-Validation Scores:", cv_scores)
+
+# Calculate the mean and standard deviation of the cross-validation scores
+mean_cv_score = np.mean(cv_scores)
+std_cv_score = np.std(cv_scores)
+
+print(f"Mean Cross-Validation Score: {mean_cv_score:.4f}")
+print(f"Standard Deviation of Cross-Validation Scores: {std_cv_score:.4f}")
