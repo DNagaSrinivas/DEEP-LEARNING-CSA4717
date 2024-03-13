@@ -1,0 +1,13 @@
+import numpy as np
+from sklearn.metrics import confusion_matrix
+
+# Define actual and predicted labels as NumPy arrays
+actual_labels = np.array(['Dog', 'Not Dog', 'Dog', 'Dog', 'Not Dog', 'Not Dog', 'Dog', 'Dog', 'Not Dog', 'Not Dog'])
+predicted_labels = np.array(['Dog', 'Not Dog', 'Dog', 'Dog', 'Not Dog', 'Dog', 'Dog', 'Not Dog', 'Dog', 'Not Dog'])
+
+# Compute confusion matrix
+cm = confusion_matrix(actual_labels, predicted_labels, labels=['Dog', 'Not Dog'])
+
+# Print confusion matrix
+print("Confusion Matrix:")
+print(cm)
