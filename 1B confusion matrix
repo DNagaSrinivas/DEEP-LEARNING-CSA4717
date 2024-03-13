@@ -1,0 +1,32 @@
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.datasets import load_breast_cancer
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LogisticRegression
+
+# Load breast cancer dataset
+data = load_breast_cancer()
+X = data.data
+y = data.target
+
+# Split the dataset into training and testing sets
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# Train a logistic regression model (you can replace this with your preferred classifier)
+model = LogisticRegression()
+model.fit(X_train, y_train)
+
+# Make predictions on the test set
+y_pred = model.predict(X_test)
+
+# Create confusion matrix
+conf_matrix = confusion_matrix(y_test, y_pred)
+
+# Display the confusion matrix
+print("Confusion Matrix:")
+print(conf_matrix)
+
+# Visualize the confusion matrix using scikit-learn's plot_confusion_matrix
+plot_confusion_matrix(model, X_test, y_test, display_labels=['Benign', 'Malignant'], cmap=plt.cm.Blues)
+plt.title('Confusion Matrix')
+plt.show()
