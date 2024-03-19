@@ -1,0 +1,22 @@
+from sklearn.datasets import load_iris
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import accuracy_score
+
+# Step 1: Load the Iris dataset
+iris = load_iris()
+X, y = iris.data, iris.target
+
+# Step 2: Split the dataset into training and testing sets
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# Step 3: Initialize and train the Logistic Regression classifier
+classifier = LogisticRegression(max_iter=1000)
+classifier.fit(X_train, y_train)
+
+# Step 4: Predict labels for the testing data
+y_pred = classifier.predict(X_test)
+
+# Step 5: Evaluate accuracy
+accuracy = accuracy_score(y_test, y_pred)
+print("Accuracy of Logistic Regression on Iris dataset:", accuracy)
