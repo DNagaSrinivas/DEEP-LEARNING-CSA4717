@@ -1,0 +1,57 @@
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Step 1: Generate Modified Synthetic Data
+np.random.seed(0)
+X = 2 * np.random.rand(100, 1)
+y = 3 * X + np.random.randn(100, 1) + 5  # Modified data with a different slope and intercept
+
+# Step 2: Define Loss Function (Mean Squared Error)
+def mse_loss(y_true, y_pred):
+    return np.mean((y_true - y_pred) ** 2)
+
+# Step 3: Gradient Descent Function
+def gradient_descent(X, y, iterations=1000, learning_rate=0.01, stopping_threshold=1e-5):
+    n_samples = X.shape[0]
+    n_features = X.shape[1]
+    weights = np.random.randn(n_features, 1)  # Initialize weights randomly
+    bias = np.random.randn()  # Initialize bias randomly
+    losses = []
+
+    for i in range(iterations):
+        # Step 4: Estimation of Optimal Parameters
+        y_pred = np.dot(X, weights) + bias
+        loss = mse_loss(y, y_pred)
+        losses.append(loss)
+
+        # Compute gradients
+        dw = (1 / n_samples) * np.dot(X.T, (y_pred - y))
+        db = (1 / n_samples) * np.sum(y_pred - y)
+
+        # Update weights and bias using gradient descent
+        weights -= learning_rate * dw
+        bias -= learning_rate * db
+
+        # Check convergence
+        if i > 0 and abs(losses[-1] - losses[-2]) < stopping_threshold:
+            print(f"Converged after {i} iterations.")
+            break
+
+    return weights, bias, losses
+
+# Step 5: Run Gradient Descent
+iterations = 1000
+learning_rate = 0.01
+stopping_threshold = 1e-5
+optimal_weights, optimal_bias, losses = gradient_descent(X, y, iterations, learning_rate, stopping_threshold)
+
+# Plot loss curve
+plt.plot(losses)
+plt.xlabel('Iterations')
+plt.ylabel('Loss')
+plt.title('Loss Curve')
+plt.show()
+
+# Print optimal parameters
+print("Optimal Weights:", optimal_weights)
+print("Optimal Bias:", optimal_bias)
